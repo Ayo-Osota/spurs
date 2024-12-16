@@ -1,30 +1,18 @@
-import fs from 'fs';
 import { Request, Response } from "express";
 import { Todo } from '../models/todos.model';
-import mongoose from 'mongoose';
 import { sendErrorResponse, sendSuccessResponse } from '../utils/handleResponse';
 
-const data = `${__dirname}/../temp-data/todos.json`
-
-const todos = JSON.parse(fs.readFileSync(data).toString())
-
-export const checkID = (req, res, next, val) => {
-    if (val > todos.length) {
-        return res.status(404).json({
-            status: 'fail',
-            message: 'Invalid ID'
-        })
-    }
-
-    next()
-}
-
 export async function getAllTodos(req: Request, res: Response) {
+    console.log('here');
+
     try {
+        console.log('here 2');
+
         const todos = await Todo.find()
 
         sendSuccessResponse(res, { data: todos })
     } catch (error) {
+        console.error(error);
         sendErrorResponse(res, {})
     }
 }
@@ -44,6 +32,7 @@ export async function createTodo(req: Request, res: Response) {
 
         sendSuccessResponse(res, { data: newTodo })
     } catch (error) {
+        console.error(error);
         sendErrorResponse(res, {})
     }
 
@@ -60,6 +49,8 @@ export async function getTodo(req: Request, res: Response) {
             sendSuccessResponse(res, { data: todo })
         }
     } catch (error) {
+        console.error(error);
+
         sendErrorResponse(res, {})
     }
 }
@@ -76,6 +67,7 @@ export async function editTodo(req: Request, res: Response) {
             sendSuccessResponse(res, { data: todo })
         }
     } catch (error) {
+        console.error(error);
         sendErrorResponse(res, {})
     }
 }
@@ -91,6 +83,7 @@ export async function deleteTodo(req: Request, res: Response) {
             sendSuccessResponse(res, { message: 'Todo deleted', data: null })
         }
     } catch (error) {
+        console.error(error);
         sendErrorResponse(res, {})
     }
 }
