@@ -67,8 +67,8 @@ export async function editTodo(req: Request, res: Response) {
             sendSuccessResponse(res, { data: todo })
         }
     } catch (error) {
-        console.error(error);
-        sendErrorResponse(res, {})
+        console.error('Error fetching todos:', error);
+        sendErrorResponse(res, { message: 'Failed to fetch todos' })
     }
 }
 
