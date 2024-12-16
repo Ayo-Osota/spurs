@@ -16,11 +16,11 @@ exports.connectDb = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
-const dbURI = process.env.DB_URI.replace('<PASSWORD>', process.env.DB_PASSWORD);
+const dbURI = process.env.MONGODB_URI;
 const connectDb = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const connection = yield mongoose_1.default.connect(dbURI);
-        console.log("Database is connected");
+        console.log("Database is connected", connection);
     }
     catch (err) {
         console.log(err);
