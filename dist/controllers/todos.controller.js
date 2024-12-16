@@ -52,7 +52,7 @@ function createTodo(req, res) {
                 title, dueDate,
                 reminderDate,
                 repeat,
-                userId: 'ayo'
+                createdBy: 'ayo'
             }).save();
             (0, handleResponse_1.sendSuccessResponse)(res, { data: newTodo });
         }
