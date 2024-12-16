@@ -1,10 +1,21 @@
 import express from 'express';
 import todosRouter from './routes/todos.routes';
 import mongoose from 'mongoose';
+import connectDb from './config/database';
 const app = express();
 
 // Middleware
 app.use(express.json());
+
+app.use('/api', (req, res, next) => {
+    try {
+        connectDb()
+        next()
+    } catch (error) {
+        console.error('Database connection error:', error);
+        res.status(500).json({ status: 'fail', message: 'Database connection failed' });
+    }
+});
 
 // app.use((req, res, next) => {
 //     next()

@@ -15,9 +15,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const todos_routes_1 = __importDefault(require("./routes/todos.routes"));
 const mongoose_1 = __importDefault(require("mongoose"));
+const database_1 = __importDefault(require("./config/database"));
 const app = (0, express_1.default)();
 // Middleware
 app.use(express_1.default.json());
+app.use('/api', (req, res, next) => {
+    try {
+        (0, database_1.default)();
+        next();
+    }
+    catch (error) {
+        console.error('Database connection error:', error);
+        res.status(500).json({ status: 'fail', message: 'Database connection failed' });
+    }
+});
 // app.use((req, res, next) => {
 //     next()
 // })
