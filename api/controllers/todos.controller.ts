@@ -1,5 +1,8 @@
 import fs from 'fs';
 import { Request, Response } from "express";
+import { Todo } from '../models/todos.model';
+import mongoose from 'mongoose';
+import { sendErrorResponse, sendSuccessResponse } from '../utils/handleResponse';
 
 const data = `${__dirname}/../temp-data/todos.json`
 
@@ -16,30 +19,34 @@ export const checkID = (req, res, next, val) => {
     next()
 }
 
-export function getAllTodos(req: Request, res: Response) {
-    res.status(200).json({
-        status: 'success',
-        results: todos.length,
-        data: {
-            todos: todos
-        }
-    })
+export async function getAllTodos(req: Request, res: Response) {
+    try {
+        const todos = await Todo.find()
+
+        sendSuccessResponse(res, { data: todos })
+    } catch (error) {
+        sendErrorResponse(res, {})
+    }
 }
 
-export function createTodo(req: Request, res: Response) {
-    const newId = todos[todos.length - 1].id + 1;
-    const newTodo = Object.assign({ id: newId }, req.body);
+export async function createTodo(req: Request, res: Response) {
+    try {
+        const { title, dueDate,
+            reminderDate,
+            repeat } = req.body
 
-    todos.push(newTodo)
+        const newTodo = await new Todo({
+            title, dueDate,
+            reminderDate,
+            repeat,
+            userId: 'ayo'
+        }).save();
 
-    fs.writeFile(data, JSON.stringify(todos), err => {
-        res.status(201).json({
-            status: 'success',
-            data: {
-                tour: newTodo
-            }
-        })
-    })
+        sendSuccessResponse(res, { data: newTodo })
+    } catch (error) {
+        sendErrorResponse(res, {})
+    }
+
 }
 
 export function getTodo(req: Request, res: Response) {
@@ -65,7 +72,7 @@ export function editTodo(req: Request, res: Response) {
             ...todos[todoIndex],
             title: title !== undefined ? title : todos[todoIndex].title,
             completed: completed !== undefined ? completed : todos[todoIndex].completed,
-            updatedAt: new Date().toISOString(), 
+            updatedAt: new Date().toISOString(),
         };
 
         res.status(200).json({
