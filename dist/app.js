@@ -27,9 +27,11 @@ app.get('/', (req, res) => {
 });
 app.get('/health', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        console.log(process.env.MONGODB_URI);
+        const connection = yield mongoose_1.default.connect(process.env.MONGODB_URI);
+        console.log({ connection });
         yield mongoose_1.default.connection.db.admin().ping();
         res.status(200).send('Database is connected');
-        console.log(process.env.MONGODB_URI);
     }
     catch (err) {
         console.log(process.env.MONGODB_URI);
