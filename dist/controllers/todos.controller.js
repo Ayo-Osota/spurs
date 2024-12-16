@@ -80,8 +80,8 @@ function editTodo(req, res) {
             }
         }
         catch (error) {
-            console.error(error);
-            (0, handleResponse_1.sendErrorResponse)(res, {});
+            console.error('Error fetching todos:', error);
+            (0, handleResponse_1.sendErrorResponse)(res, { message: 'Failed to fetch todos' });
         }
     });
 }
