@@ -3,7 +3,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteTodo = exports.editTodo = exports.getTodo = exports.createTodo = exports.getAllTodos = exports.checkID = void 0;
+exports.checkID = void 0;
+exports.getAllTodos = getAllTodos;
+exports.createTodo = createTodo;
+exports.getTodo = getTodo;
+exports.editTodo = editTodo;
+exports.deleteTodo = deleteTodo;
 const fs_1 = __importDefault(require("fs"));
 const data = `${__dirname}/../temp-data/todos.json`;
 const todos = JSON.parse(fs_1.default.readFileSync(data).toString());
@@ -26,7 +31,6 @@ function getAllTodos(req, res) {
         }
     });
 }
-exports.getAllTodos = getAllTodos;
 function createTodo(req, res) {
     const newId = todos[todos.length - 1].id + 1;
     const newTodo = Object.assign({ id: newId }, req.body);
@@ -40,7 +44,6 @@ function createTodo(req, res) {
         });
     });
 }
-exports.createTodo = createTodo;
 function getTodo(req, res) {
     const id = +req.params.id;
     const todo = todos.find(todo => todo.id === id);
@@ -52,7 +55,6 @@ function getTodo(req, res) {
         }
     });
 }
-exports.getTodo = getTodo;
 function editTodo(req, res) {
     try {
         const { id } = req.params;
@@ -73,7 +75,6 @@ function editTodo(req, res) {
         });
     }
 }
-exports.editTodo = editTodo;
 function deleteTodo(req, res) {
     try {
         const { id } = req.params;
@@ -91,4 +92,3 @@ function deleteTodo(req, res) {
         });
     }
 }
-exports.deleteTodo = deleteTodo;
