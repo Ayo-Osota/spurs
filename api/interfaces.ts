@@ -8,7 +8,8 @@ export interface CreateTodoInputI {
 }
 
 export interface TodoI extends CreateTodoInputI, Document {
-    userId: string;
+    createdBy: string;
+    contributors: string[]
     important: boolean;
     completed: boolean;
     createdAt: Date;
