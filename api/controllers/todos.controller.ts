@@ -65,7 +65,7 @@ export function editTodo(req: Request, res: Response) {
             ...todos[todoIndex],
             title: title !== undefined ? title : todos[todoIndex].title,
             completed: completed !== undefined ? completed : todos[todoIndex].completed,
-            updatedAt: new Date().toISOString(), // Add/update an `updatedAt` field
+            updatedAt: new Date().toISOString(), 
         };
 
         res.status(200).json({

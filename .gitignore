@@ -35,3 +35,4 @@ coverage/
 
 # OS-specific files
 Thumbs.db
+.vercel
