@@ -7,9 +7,13 @@ const todoSchema = new Schema({
         type: String,
         required: true
     },
-    userId: {
+    createdBy: {
         type: String,
         required: true
+    },
+    contributors: {
+        type: Array,
+        required: false
     },
     dueDate: {
         type: Date,

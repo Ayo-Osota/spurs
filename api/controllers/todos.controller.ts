@@ -39,7 +39,7 @@ export async function createTodo(req: Request, res: Response) {
             title, dueDate,
             reminderDate,
             repeat,
-            userId: 'ayo'
+            createdBy: 'ayo'
         }).save();
 
         sendSuccessResponse(res, { data: newTodo })
