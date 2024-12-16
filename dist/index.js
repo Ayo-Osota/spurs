@@ -8,10 +8,8 @@ const app_1 = __importDefault(require("./app"));
 const database_1 = __importDefault(require("./config/database"));
 (0, dotenv_1.config)();
 const PORT = process.env.PORT || 3000;
-console.log('tch');
 // Start Server
 app_1.default.listen(PORT, () => {
-    console.log('sigh');
     console.log(`Server running on http://localhost:${PORT}`);
     (0, database_1.default)();
 });
