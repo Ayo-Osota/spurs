@@ -19,8 +19,12 @@ app.get('/health', async (req, res) => {
     try {
         await mongoose.connection.db.admin().ping();
         res.status(200).send('Database is connected');
+        console.log(process.env.MONGODB_URI);
+
     } catch (err) {
+        console.log(process.env.MONGODB_URI);
         res.status(500).send('Database connection failed');
+
     }
 });
 
