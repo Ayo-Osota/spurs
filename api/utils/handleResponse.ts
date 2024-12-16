@@ -12,9 +12,13 @@ export const sendSuccessResponse = (
         statusCode?: number;
     }
 ) => {
+    const isArray = Array.isArray(data);
+    const results = isArray ? data.length : undefined;
+
     return res.status(statusCode).json({
         status: true,
         message,
+        ...(isArray && { results }),
         data,
     });
 };

@@ -49,62 +49,48 @@ export async function createTodo(req: Request, res: Response) {
 
 }
 
-export function getTodo(req: Request, res: Response) {
-    const id = +req.params.id;
-    const todo = todos.find(todo => todo.id === id)
-    res.status(200).json({
-        status: 'success',
-        results: todos.length,
-        data: {
-            todo: todo
-        }
-    })
-}
-
-export function editTodo(req: Request, res: Response) {
+export async function getTodo(req: Request, res: Response) {
     try {
-        const { id } = req.params;
-        const { title, completed } = req.body;
+        const { id } = req.params
+        const todo = await Todo.findById(id)
 
-        const todoIndex = todos.findIndex((todo: any) => todo.id === +id);
-
-        todos[todoIndex] = {
-            ...todos[todoIndex],
-            title: title !== undefined ? title : todos[todoIndex].title,
-            completed: completed !== undefined ? completed : todos[todoIndex].completed,
-            updatedAt: new Date().toISOString(),
-        };
-
-        res.status(200).json({
-            status: 'success',
-            data: {
-                todo: todos[todoIndex],
-            },
-        });
+        if (!todo) {
+            sendErrorResponse(res, { statusCode: 404, message: 'Todo not found' })
+        } else {
+            sendSuccessResponse(res, { data: todo })
+        }
     } catch (error) {
-        res.status(500).json({
-            status: 'error',
-            message: 'An error occurred while editing the todo',
-        });
+        sendErrorResponse(res, {})
     }
 }
 
-export function deleteTodo(req: Request, res: Response) {
+export async function editTodo(req: Request, res: Response) {
+    try {
+        const { id } = req.params;
+        const updates = req.body;
+
+        const todo = await Todo.findByIdAndUpdate(id, updates, { new: true, runValidators: true });
+        if (!todo) {
+            sendErrorResponse(res, { statusCode: 404, message: 'Todo not found' })
+        } else {
+            sendSuccessResponse(res, { data: todo })
+        }
+    } catch (error) {
+        sendErrorResponse(res, {})
+    }
+}
+
+export async function deleteTodo(req: Request, res: Response) {
     try {
         const { id } = req.params;
 
-        const todoIndex = todos.findIndex((todo: any) => todo.id === +id);
-
-        todos.splice(todoIndex, 1);
-
-        res.status(204).json({
-            status: 'success',
-            data: null,
-        });
+        const todo = await Todo.findByIdAndDelete(id);
+        if (!todo) {
+            sendErrorResponse(res, { statusCode: 404, message: 'Todo not found' })
+        } else {
+            sendSuccessResponse(res, { message: 'Todo deleted', data: null })
+        }
     } catch (error) {
-        res.status(500).json({
-            status: 'error',
-            message: 'An error occurred while deleting the todo',
-        });
+        sendErrorResponse(res, {})
     }
 }
