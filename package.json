@@ -2,22 +2,24 @@
   "name": "spurs",
   "version": "1.0.0",
   "description": "Revolutionary todos app",
-  "main": "server.ts",
+  "main": "index.ts",
   "scripts": {
     "build-ts": "tsc",
     "prod": "npx run build-ts",
     "postinstall": "npm run build-ts",
-    "dev": "npx nodemon",
-    "start": "node --optimize_for_size --max_old_space_size=460 dist/app.js"
+    "dev": "cross-env NODE_ENV=development npx nodemon",
+    "start": "cross-env NODE_ENV=production node --optimize_for_size --max_old_space_size=460 dist/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.4.7",
     "express": "^4.21.2"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
-    "@types/node": "^22.10.2"
+    "@types/node": "^22.10.2",
+    "cross-env": "^7.0.3"
   }
 }

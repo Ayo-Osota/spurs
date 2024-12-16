@@ -6,7 +6,7 @@
         "noImplicitAny": false,
         "moduleResolution": "node",
         "outDir": "./dist",
-        "rootDir": "./src",
+        "rootDir": "./api",
         "pretty": true,
         // "baseUrl": ".",
         "alwaysStrict": true,
@@ -14,12 +14,12 @@
         "experimentalDecorators": true,
         "forceConsistentCasingInFileNames": true
         // "paths": {
-        //   "*": ["node_modules/*", "src/types/*"]
+        //   "*": ["node_modules/*", "api/types/*"]
         // },
     },
     "include": [
-        "src/**/*.ts",
-        "src/models/seed.ts"
+        "api/**/*.ts",
+        // "api/models/seed.ts"
     ],
     "exclude": [
         "node_modules"

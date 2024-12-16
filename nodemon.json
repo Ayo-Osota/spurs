@@ -6,8 +6,8 @@
         "node_modules"
     ],
     "watch": [
-        "src"
+        "api"
     ],
-    "exec": "npx ts-node ./src/server.ts",
+    "exec": "npx ts-node ./api/index.ts",
     "ext": "ts"
 }
