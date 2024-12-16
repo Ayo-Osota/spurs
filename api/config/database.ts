@@ -1,6 +1,5 @@
-// import mongoose from "mongoose";
+import mongoose from "mongoose";
 import dotenv from "dotenv";
-import { MongoClient } from "mongodb";
 dotenv.config();
 
 
@@ -16,8 +15,6 @@ dotenv.config();
 //     }
 // };
 
-
-import mongoose from "mongoose";
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
@@ -47,6 +44,7 @@ async function connectDb() {
         const opts = {
             bufferCommands: false,
         };
+        console.log('DB connected here');
 
         cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
             return mongoose;
