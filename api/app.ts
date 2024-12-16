@@ -7,9 +7,9 @@ const app = express();
 // Middleware
 app.use(express.json());
 
-app.use('/api', (req, res, next) => {
+app.use('/api', async (req, res, next) => {
     try {
-        connectDb()
+        await connectDb()
         next()
     } catch (error) {
         console.error('Database connection error:', error);
