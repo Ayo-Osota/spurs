@@ -27,7 +27,6 @@ app.get('/health', async (req, res) => {
     } catch (err) {
         console.log(process.env.MONGODB_URI);
         res.status(500).send('Database connection failed');
-
     }
 });
 
