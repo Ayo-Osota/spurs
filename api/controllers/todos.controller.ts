@@ -3,11 +3,7 @@ import { Todo } from '../models/todos.model';
 import { sendErrorResponse, sendSuccessResponse } from '../utils/handleResponse';
 
 export async function getAllTodos(req: Request, res: Response) {
-    console.log('here');
-
     try {
-        console.log('here 2');
-
         const todos = await Todo.find()
 
         sendSuccessResponse(res, { data: todos })

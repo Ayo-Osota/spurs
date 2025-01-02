@@ -2,6 +2,7 @@ import express from 'express';
 import todosRouter from './routes/todos.routes';
 import mongoose from 'mongoose';
 import connectDb from './config/database';
+import usersRouter from './routes/users.routes';
 const app = express();
 
 // Middleware
@@ -42,5 +43,6 @@ app.get('/health', async (req, res) => {
 });
 
 app.use('/api/v1/todos', todosRouter);
+app.use('/api/v1/users', usersRouter);
 
 export default app

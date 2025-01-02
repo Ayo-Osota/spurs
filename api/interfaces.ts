@@ -15,3 +15,12 @@ export interface TodoI extends CreateTodoInputI, Document {
     createdAt: Date;
     updatedAt: Date;
 }
+
+export interface UserI extends Document {
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string,
+    isVerified: boolean,
+    comparePassword(password: string): Promise<boolean>;
+}

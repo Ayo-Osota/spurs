@@ -19,16 +19,16 @@ const database_1 = __importDefault(require("./config/database"));
 const app = (0, express_1.default)();
 // Middleware
 app.use(express_1.default.json());
-app.use('/api', (req, res, next) => {
+app.use('/api', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        (0, database_1.default)();
+        yield (0, database_1.default)();
         next();
     }
     catch (error) {
         console.error('Database connection error:', error);
         res.status(500).json({ status: 'fail', message: 'Database connection failed' });
     }
-});
+}));
 // app.use((req, res, next) => {
 //     next()
 // })
