@@ -26,23 +26,23 @@ app.use('/api', async (req, res, next) => {
 // })
 
 // Basic Route
-app.get('/', (req, res) => {
-    res.send('Welcome to Spurs Todo API!')
-})
+// app.get('/', (req, res) => {
+//     res.send('Welcome to Spurs Todo API!')
+// })
 
-app.get('/health', async (req, res) => {
-    try {
-        console.log(process.env.MONGODB_URI)
-        const connection = await mongoose.connect(process.env.MONGODB_URI)
-        console.log({ connection })
+// app.get('/health', async (req, res) => {
+//     try {
+//         console.log(process.env.MONGODB_URI)
+//         const connection = await mongoose.connect(process.env.MONGODB_URI)
+//         console.log({ connection })
 
-        await mongoose.connection.db.admin().ping()
-        res.status(200).send('Database is connected')
-    } catch (err) {
-        console.log(process.env.MONGODB_URI)
-        res.status(500).send('Database connection failed')
-    }
-})
+//         await mongoose.connection.db.admin().ping()
+//         res.status(200).send('Database is connected')
+//     } catch (err) {
+//         console.log(process.env.MONGODB_URI)
+//         res.status(500).send('Database connection failed')
+//     }
+// })
 
 app.use('/api/v1/todos', todosRouter)
 app.use('/api/v1/users', usersRouter)
