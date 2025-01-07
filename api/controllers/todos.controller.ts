@@ -4,7 +4,10 @@ import { sendErrorResponse, sendSuccessResponse } from '../utils/handleResponse'
 
 export async function getAllTodos(req: Request, res: Response) {
     try {
-        const todos = await Todo.find({ users: req.user.userId })
+        const todos = await Todo
+            .find
+            // { users: req.user.userId }
+            ()
 
         sendSuccessResponse(res, { data: todos })
     } catch (error) {
@@ -22,8 +25,8 @@ export async function createTodo(req: Request, res: Response) {
             dueDate,
             reminderDate,
             repeat,
-            createdBy: req.user.userId,
-            users: [req.user.userId],
+            // createdBy: req.user.userId,
+            // users: [req.user.userId],
         }).save()
 
         sendSuccessResponse(res, { data: newTodo })

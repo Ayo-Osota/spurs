@@ -114,7 +114,7 @@ export const loginRequired = async (
             })
         }
 
-        req.user = { userId: user._id.toString() }
+        // req.user = { userId: user._id.toString() }
 
         next()
     } catch (err) {
