@@ -4,7 +4,7 @@ import {
     deleteTodo,
     editTodo,
     getAllTodos,
-    getTodo,
+    // getTodo,
 } from '../controllers/todos.controller'
 import { loginRequired } from '../controllers/auth.controller'
 
@@ -16,7 +16,7 @@ todosRouter
     .post(loginRequired, createTodo)
 todosRouter
     .route('/:id')
-    .get(loginRequired, getTodo)
+    // .get(loginRequired, getTodo)
     .patch(loginRequired, editTodo)
     .delete(loginRequired, deleteTodo)
 

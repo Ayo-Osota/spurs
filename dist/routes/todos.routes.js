@@ -7,6 +7,13 @@ const express_1 = __importDefault(require("express"));
 const todos_controller_1 = require("../controllers/todos.controller");
 const auth_controller_1 = require("../controllers/auth.controller");
 const todosRouter = express_1.default.Router();
-todosRouter.route('/').get(auth_controller_1.loginRequired, todos_controller_1.getAllTodos).post(todos_controller_1.createTodo);
-todosRouter.route('/:id').get(todos_controller_1.getTodo).patch(todos_controller_1.editTodo).delete(todos_controller_1.deleteTodo);
+todosRouter
+    .route('/')
+    .get(auth_controller_1.loginRequired, todos_controller_1.getAllTodos)
+    .post(auth_controller_1.loginRequired, todos_controller_1.createTodo);
+todosRouter
+    .route('/:id')
+    .get(auth_controller_1.loginRequired, todos_controller_1.getTodo)
+    .patch(auth_controller_1.loginRequired, todos_controller_1.editTodo)
+    .delete(auth_controller_1.loginRequired, todos_controller_1.deleteTodo);
 exports.default = todosRouter;

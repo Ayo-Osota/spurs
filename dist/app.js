@@ -14,7 +14,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const todos_routes_1 = __importDefault(require("./routes/todos.routes"));
-const mongoose_1 = __importDefault(require("mongoose"));
 const database_1 = __importDefault(require("./config/database"));
 const users_routes_1 = __importDefault(require("./routes/users.routes"));
 const app = (0, express_1.default)();
@@ -37,22 +36,21 @@ app.use('/api', (req, res, next) => __awaiter(void 0, void 0, void 0, function* 
 //     next()
 // })
 // Basic Route
-app.get('/', (req, res) => {
-    res.send('Welcome to Spurs Todo API!');
-});
-app.get('/health', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        console.log(process.env.MONGODB_URI);
-        const connection = yield mongoose_1.default.connect(process.env.MONGODB_URI);
-        console.log({ connection });
-        yield mongoose_1.default.connection.db.admin().ping();
-        res.status(200).send('Database is connected');
-    }
-    catch (err) {
-        console.log(process.env.MONGODB_URI);
-        res.status(500).send('Database connection failed');
-    }
-}));
+// app.get('/', (req, res) => {
+//     res.send('Welcome to Spurs Todo API!')
+// })
+// app.get('/health', async (req, res) => {
+//     try {
+//         console.log(process.env.MONGODB_URI)
+//         const connection = await mongoose.connect(process.env.MONGODB_URI)
+//         console.log({ connection })
+//         await mongoose.connection.db.admin().ping()
+//         res.status(200).send('Database is connected')
+//     } catch (err) {
+//         console.log(process.env.MONGODB_URI)
+//         res.status(500).send('Database connection failed')
+//     }
+// })
 app.use('/api/v1/todos', todos_routes_1.default);
 app.use('/api/v1/users', users_routes_1.default);
 exports.default = app;

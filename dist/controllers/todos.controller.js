@@ -19,7 +19,7 @@ const handleResponse_1 = require("../utils/handleResponse");
 function getAllTodos(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const todos = yield todos_model_1.Todo.find();
+            const todos = yield todos_model_1.Todo.find({ users: req.user.userId });
             (0, handleResponse_1.sendSuccessResponse)(res, { data: todos });
         }
         catch (error) {
@@ -33,10 +33,12 @@ function createTodo(req, res) {
         try {
             const { title, dueDate, reminderDate, repeat } = req.body;
             const newTodo = yield new todos_model_1.Todo({
-                title, dueDate,
+                title,
+                dueDate,
                 reminderDate,
                 repeat,
-                createdBy: 'ayo'
+                createdBy: req.user.userId,
+                users: [req.user.userId],
             }).save();
             (0, handleResponse_1.sendSuccessResponse)(res, { data: newTodo });
         }
@@ -50,9 +52,12 @@ function getTodo(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const { id } = req.params;
-            const todo = yield todos_model_1.Todo.findById(id);
+            const todo = yield todos_model_1.Todo.findOne({ _id: id, users: req.user.userId });
             if (!todo) {
-                (0, handleResponse_1.sendErrorResponse)(res, { statusCode: 404, message: 'Todo not found' });
+                (0, handleResponse_1.sendErrorResponse)(res, {
+                    statusCode: 404,
+                    message: 'Todo not found',
+                });
             }
             else {
                 (0, handleResponse_1.sendSuccessResponse)(res, { data: todo });
@@ -69,9 +74,12 @@ function editTodo(req, res) {
         try {
             const { id } = req.params;
             const updates = req.body;
-            const todo = yield todos_model_1.Todo.findByIdAndUpdate(id, updates, { new: true, runValidators: true });
+            const todo = yield todos_model_1.Todo.findOneAndUpdate({ _id: id, users: req.user.userId }, updates, { new: true, runValidators: true });
             if (!todo) {
-                (0, handleResponse_1.sendErrorResponse)(res, { statusCode: 404, message: 'Todo not found' });
+                (0, handleResponse_1.sendErrorResponse)(res, {
+                    statusCode: 404,
+                    message: 'Todo not found',
+                });
             }
             else {
                 (0, handleResponse_1.sendSuccessResponse)(res, { data: todo });
@@ -87,9 +95,15 @@ function deleteTodo(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const { id } = req.params;
-            const todo = yield todos_model_1.Todo.findByIdAndDelete(id);
+            const todo = yield todos_model_1.Todo.findOneAndDelete({
+                _id: id,
+                users: req.user.userId,
+            });
             if (!todo) {
-                (0, handleResponse_1.sendErrorResponse)(res, { statusCode: 404, message: 'Todo not found' });
+                (0, handleResponse_1.sendErrorResponse)(res, {
+                    statusCode: 404,
+                    message: 'Todo not found',
+                });
             }
             else {
                 (0, handleResponse_1.sendSuccessResponse)(res, { message: 'Todo deleted', data: null });

@@ -101,7 +101,7 @@ const loginRequired = (req, res, next) => __awaiter(void 0, void 0, void 0, func
             });
         }
         const { userId } = decoded;
-        const user = yield users_models_1.User.findOne({ _id: userId });
+        const user = yield users_models_1.User.findById(userId);
         if (!user) {
             (0, handleResponse_1.sendErrorResponse)(res, {
                 message: 'User not found',

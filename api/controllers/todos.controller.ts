@@ -33,25 +33,25 @@ export async function createTodo(req: Request, res: Response) {
     }
 }
 
-export async function getTodo(req: Request, res: Response) {
-    try {
-        const { id } = req.params
-        const todo = await Todo.findOne({ _id: id, users: req.user.userId })
+// export async function getTodo(req: Request, res: Response) {
+//     try {
+//         const { id } = req.params
+//         const todo = await Todo.findOne({ _id: id, users: req.user.userId })
 
-        if (!todo) {
-            sendErrorResponse(res, {
-                statusCode: 404,
-                message: 'Todo not found',
-            })
-        } else {
-            sendSuccessResponse(res, { data: todo })
-        }
-    } catch (error) {
-        console.error(error)
+//         if (!todo) {
+//             sendErrorResponse(res, {
+//                 statusCode: 404,
+//                 message: 'Todo not found',
+//             })
+//         } else {
+//             sendSuccessResponse(res, { data: todo })
+//         }
+//     } catch (error) {
+//         console.error(error)
 
-        sendErrorResponse(res, {})
-    }
-}
+//         sendErrorResponse(res, {})
+//     }
+// }
 
 export async function editTodo(req: Request, res: Response) {
     try {

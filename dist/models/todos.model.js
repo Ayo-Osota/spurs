@@ -5,37 +5,41 @@ const mongoose_1 = require("mongoose");
 const todoSchema = new mongoose_1.Schema({
     title: {
         type: String,
-        required: true
+        required: true,
     },
     createdBy: {
         type: String,
-        required: true
+        required: true,
+    },
+    users: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
     },
     contributors: {
         type: Array,
-        required: false
+        required: false,
     },
     dueDate: {
         type: Date,
-        required: false
+        required: false,
     },
     reminderDate: {
         type: Date,
-        required: false
+        required: false,
     },
     repeat: {
         type: String,
-        enum: ['DAILY', 'WEEKLY', 'MONTHLY', 'YEARLY',
-            'WEEKDAYS', 'NEVER'],
-        required: false
+        enum: ['DAILY', 'WEEKLY', 'MONTHLY', 'YEARLY', 'WEEKDAYS', 'NEVER'],
+        required: false,
     },
     important: {
         type: Boolean,
-        default: false
+        default: false,
     },
     completed: {
         type: Boolean,
-        default: false
+        default: false,
     },
 }, { timestamps: true });
-exports.Todo = (0, mongoose_1.model)("Todo", todoSchema);
+exports.Todo = (0, mongoose_1.model)('Todo', todoSchema);
