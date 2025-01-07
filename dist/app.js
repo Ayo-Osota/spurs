@@ -27,7 +27,10 @@ app.use('/api', (req, res, next) => __awaiter(void 0, void 0, void 0, function* 
     }
     catch (error) {
         console.error('Database connection error:', error);
-        res.status(500).json({ status: 'fail', message: 'Database connection failed' });
+        res.status(500).json({
+            status: 'fail',
+            message: 'Database connection failed',
+        });
     }
 }));
 // app.use((req, res, next) => {

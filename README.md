@@ -7,7 +7,7 @@ Spurs is not your average todo app.
 ### Features
 
 - Create, Read, Update, and Delete (CRUD) ✅
-- Task Prioritization
+- Task Prioritization ✅
 - Recurring Tasks
 - Real-Time Collaboration
 - Reminders & Notifications: email or push notifications

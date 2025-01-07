@@ -1,7 +1,8 @@
-import { Request, Response } from 'express'
+import { NextFunction, Request, Response } from 'express'
 import { User } from '../models/users.models'
 import { sendErrorResponse, sendSuccessResponse } from '../utils/handleResponse'
 import jwt, { JwtPayload } from 'jsonwebtoken'
+import { getTokenData } from '../utils/tokenDecoder'
 
 export const generateJwt = (userId: string) => {
     const jwtKey = process.env.JWT_SECRET
@@ -87,17 +88,41 @@ export const signup = async (req: Request, res: Response) => {
     }
 }
 
-export const protect = async (req: Request, res: Response, next) => {
-    const token = req.header('Authorization').split(' ')[1]
-    console.log(token)
+export const loginRequired = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const decoded = getTokenData(req)
 
-    if (!token) {
-        sendErrorResponse(res, {
-            message: 'Not authorized to access this route',
-            statusCode: 401,
+        if (!decoded) {
+            sendErrorResponse(res, {
+                message: 'Invalid token',
+                statusCode: 400,
+            })
+        }
+
+        const { userId } = decoded
+
+        const user = await User.findById(userId)
+
+        if (!user) {
+            sendErrorResponse(res, {
+                message: 'User not found',
+                statusCode: 404,
+            })
+        }
+
+        req.user = { userId: user._id.toString() }
+
+        next()
+    } catch (err) {
+        console.log(err)
+        const resp = sendErrorResponse(res, {
+            message: 'Session expired',
+            statusCode: 403,
         })
+        next(resp)
     }
-    // const decoded = verifyToken(token)
-    // const user
-    next()
 }

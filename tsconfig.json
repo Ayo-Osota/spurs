@@ -8,6 +8,7 @@
         "outDir": "./dist",
         "rootDir": "./api",
         "pretty": true,
+        "typeRoots": ["./api/@types"],
         // "baseUrl": ".",
         "alwaysStrict": true,
         "emitDecoratorMetadata": true,
@@ -18,10 +19,8 @@
         // },
     },
     "include": [
-        "api/**/*.ts",
+        "api/**/*.ts"
         // "api/models/seed.ts"
     ],
-    "exclude": [
-        "node_modules"
-    ]
+    "exclude": ["node_modules"]
 }
