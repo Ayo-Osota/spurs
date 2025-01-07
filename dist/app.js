@@ -16,6 +16,7 @@ const express_1 = __importDefault(require("express"));
 const todos_routes_1 = __importDefault(require("./routes/todos.routes"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const database_1 = __importDefault(require("./config/database"));
+const users_routes_1 = __importDefault(require("./routes/users.routes"));
 const app = (0, express_1.default)();
 // Middleware
 app.use(express_1.default.json());
@@ -50,4 +51,5 @@ app.get('/health', (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 }));
 app.use('/api/v1/todos', todos_routes_1.default);
+app.use('/api/v1/users', users_routes_1.default);
 exports.default = app;

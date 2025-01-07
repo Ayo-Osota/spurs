@@ -18,9 +18,7 @@ const todos_model_1 = require("../models/todos.model");
 const handleResponse_1 = require("../utils/handleResponse");
 function getAllTodos(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log('here');
         try {
-            console.log('here 2');
             const todos = yield todos_model_1.Todo.find();
             (0, handleResponse_1.sendSuccessResponse)(res, { data: todos });
         }
