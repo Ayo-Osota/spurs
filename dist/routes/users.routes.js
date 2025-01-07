@@ -9,5 +9,6 @@ const user_controller_1 = require("../controllers/user.controller");
 const usersRouter = express_1.default.Router();
 usersRouter.post('/signup', auth_controller_1.signup);
 usersRouter.post('/login', auth_controller_1.login);
-usersRouter.route('/:id').get(user_controller_1.getUser).patch(user_controller_1.editUser).delete(user_controller_1.deleteUser);
+usersRouter.route('/:id').get(user_controller_1.getUser).patch(user_controller_1.editUser);
+// .delete(deleteUser)
 exports.default = usersRouter;

@@ -11,7 +11,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getUser = getUser;
 exports.editUser = editUser;
-exports.deleteUser = deleteUser;
 const handleResponse_1 = require("../utils/handleResponse");
 const users_models_1 = require("../models/users.models");
 function getUser(req, res) {
@@ -20,7 +19,10 @@ function getUser(req, res) {
             const { id } = req.params;
             const todo = yield users_models_1.User.findById(id);
             if (!todo) {
-                (0, handleResponse_1.sendErrorResponse)(res, { statusCode: 404, message: 'User not found' });
+                (0, handleResponse_1.sendErrorResponse)(res, {
+                    statusCode: 404,
+                    message: 'User not found',
+                });
             }
             else {
                 (0, handleResponse_1.sendSuccessResponse)(res, { data: todo });
@@ -37,9 +39,15 @@ function editUser(req, res) {
         try {
             const { id } = req.params;
             const updates = req.body;
-            const user = yield users_models_1.User.findByIdAndUpdate(id, updates, { new: true, runValidators: true });
+            const user = yield users_models_1.User.findByIdAndUpdate(id, updates, {
+                new: true,
+                runValidators: true,
+            });
             if (!user) {
-                (0, handleResponse_1.sendErrorResponse)(res, { statusCode: 404, message: 'user not found' });
+                (0, handleResponse_1.sendErrorResponse)(res, {
+                    statusCode: 404,
+                    message: 'user not found',
+                });
             }
             else {
                 (0, handleResponse_1.sendSuccessResponse)(res, { data: user });
@@ -51,21 +59,17 @@ function editUser(req, res) {
         }
     });
 }
-function deleteUser(req, res) {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            const { id } = req.params;
-            const user = yield users_models_1.User.findByIdAndDelete(id);
-            if (!user) {
-                (0, handleResponse_1.sendErrorResponse)(res, { statusCode: 404, message: 'user not found' });
-            }
-            else {
-                (0, handleResponse_1.sendSuccessResponse)(res, { message: 'user deleted', data: null });
-            }
-        }
-        catch (error) {
-            console.error(error);
-            (0, handleResponse_1.sendErrorResponse)(res, {});
-        }
-    });
-}
+// export async function deleteUser(req: Request, res: Response) {
+//     try {
+//         const { id } = req.params;
+//         const user = await User.findByIdAndDelete(id);
+//         if (!user) {
+//             sendErrorResponse(res, { statusCode: 404, message: 'user not found' })
+//         } else {
+//             sendSuccessResponse(res, { message: 'user deleted', data: null })
+//         }
+//     } catch (error) {
+//         console.error(error);
+//         sendErrorResponse(res, {})
+//     }
+// }

@@ -1,8 +1,8 @@
 import express from 'express'
 import {
     createTodo,
-    deleteTodo,
-    editTodo,
+    // deleteTodo,
+    // editTodo,
     getAllTodos,
     // getTodo,
 } from '../controllers/todos.controller'
@@ -14,10 +14,10 @@ todosRouter
     .route('/')
     .get(loginRequired, getAllTodos)
     .post(loginRequired, createTodo)
-todosRouter
-    .route('/:id')
-    // .get(loginRequired, getTodo)
-    .patch(loginRequired, editTodo)
-    .delete(loginRequired, deleteTodo)
+// todosRouter
+//     .route('/:id')
+//     // .get(loginRequired, getTodo)
+//     .patch(loginRequired, editTodo)
+//     .delete(loginRequired, deleteTodo)
 
 export default todosRouter
