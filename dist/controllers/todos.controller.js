@@ -16,7 +16,8 @@ const handleResponse_1 = require("../utils/handleResponse");
 function getAllTodos(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const todos = yield todos_model_1.Todo.find({ users: req.user.userId });
+            const todos = yield todos_model_1.Todo
+                .find();
             (0, handleResponse_1.sendSuccessResponse)(res, { data: todos });
         }
         catch (error) {
@@ -34,8 +35,8 @@ function createTodo(req, res) {
                 dueDate,
                 reminderDate,
                 repeat,
-                createdBy: req.user.userId,
-                users: [req.user.userId],
+                // createdBy: req.user.userId,
+                // users: [req.user.userId],
             }).save();
             (0, handleResponse_1.sendSuccessResponse)(res, { data: newTodo });
         }

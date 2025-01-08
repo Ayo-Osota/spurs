@@ -108,7 +108,7 @@ const loginRequired = (req, res, next) => __awaiter(void 0, void 0, void 0, func
                 statusCode: 404,
             });
         }
-        req.user = { userId: user._id.toString() };
+        // req.user = { userId: user._id.toString() }
         next();
     }
     catch (err) {
