@@ -1,15 +1,12 @@
 import express from 'express'
 import todosRouter from './routes/todos.routes'
 import mongoose from 'mongoose'
-import bodyParser from 'body-parser'
 import connectDb from './config/database'
 import usersRouter from './routes/users.routes'
 const app = express()
 
 // Middleware
 app.use(express.json())
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use('/api', async (req, res, next) => {
     try {
