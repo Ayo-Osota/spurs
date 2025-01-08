@@ -27,7 +27,7 @@ export const login = async (req: Request, res: Response) => {
     const { email, password } = req.body
 
     try {
-        let user = await User.findOne({ email })
+        let user = await User.findOne({ email }).select('+password')
 
         if (!user) {
             sendErrorResponse(res, {
@@ -69,7 +69,7 @@ export const signup = async (req: Request, res: Response) => {
             })
         }
 
-        let user = await User.findOne({ email })
+        let user = await User.findOne({ email }).select('+password')
 
         // If user already exists, log them in directly
         if (user) {
