@@ -1,4 +1,4 @@
-import express from 'express'
+import express, { Request, Response } from 'express'
 import todosRouter from './routes/todos.routes'
 import mongoose from 'mongoose'
 import connectDb from './config/database'
@@ -46,5 +46,14 @@ app.get('/health', async (req, res) => {
 
 app.use('/api/v1/todos', todosRouter)
 app.use('/api/v1/user', usersRouter)
+
+// 404 Error Handler
+app.all('*', (req: Request, res: Response) => {
+    res.status(404).json({
+        status: false,
+        error: 'Page not found',
+        route: req.originalUrl,
+    })
+})
 
 export default app

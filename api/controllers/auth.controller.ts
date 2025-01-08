@@ -69,6 +69,29 @@ export const signup = async (req: Request, res: Response) => {
             })
         }
 
+        let user = await User.findOne({ email })
+
+        // If user already exists, log them in directly
+        if (user) {
+            const isPasswordCorrect = await user.comparePassword(password)
+            if (!isPasswordCorrect) {
+                sendErrorResponse(res, {
+                    message: 'Invalid email or password',
+                    statusCode: 401,
+                })
+                return
+            }
+
+            const token = generateJwt(user._id.toString())
+            res.status(200).json({
+                status: 'success',
+                message: 'Logged in successfully',
+                token,
+                data: { user },
+            })
+            return
+        }
+
         const newUser = await User.create({
             email,
             password,
@@ -79,7 +102,7 @@ export const signup = async (req: Request, res: Response) => {
         const token = generateJwt(newUser._id.toString())
         res.status(201).json({
             status: 'success',
-            message: 'Logged in successfully',
+            message: 'Account created and Logged in successfully',
             token,
             data: { user: newUser },
         })
