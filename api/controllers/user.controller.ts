@@ -4,8 +4,8 @@ import { User } from '../models/users.models'
 
 export async function getUser(req: Request, res: Response) {
     try {
-        const { id } = req.params
-        const todo = await User.findById(id)
+        const { userId } = req.user
+        const todo = await User.findById(userId)
 
         if (!todo) {
             sendErrorResponse(res, {
@@ -24,10 +24,10 @@ export async function getUser(req: Request, res: Response) {
 
 export async function editUser(req: Request, res: Response) {
     try {
-        const { id } = req.params
+        const { userId } = req.user
         const updates = req.body
 
-        const user = await User.findByIdAndUpdate(id, updates, {
+        const user = await User.findByIdAndUpdate(userId, updates, {
             new: true,
             runValidators: true,
         })
@@ -47,9 +47,9 @@ export async function editUser(req: Request, res: Response) {
 
 export async function deleteUser(req: Request, res: Response) {
     try {
-        const { id } = req.params
+        const { userId } = req.user
 
-        const user = await User.findByIdAndDelete(id)
+        const user = await User.findByIdAndDelete(userId)
         if (!user) {
             sendErrorResponse(res, {
                 statusCode: 404,

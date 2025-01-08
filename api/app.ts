@@ -45,6 +45,6 @@ app.get('/health', async (req, res) => {
 })
 
 app.use('/api/v1/todos', todosRouter)
-app.use('/api/v1/users', usersRouter)
+app.use('/api/v1/user', usersRouter)
 
 export default app
