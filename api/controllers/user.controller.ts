@@ -45,18 +45,21 @@ export async function editUser(req: Request, res: Response) {
     }
 }
 
-// export async function deleteUser(req: Request, res: Response) {
-//     try {
-//         const { id } = req.params;
+export async function deleteUser(req: Request, res: Response) {
+    try {
+        const { id } = req.params
 
-//         const user = await User.findByIdAndDelete(id);
-//         if (!user) {
-//             sendErrorResponse(res, { statusCode: 404, message: 'user not found' })
-//         } else {
-//             sendSuccessResponse(res, { message: 'user deleted', data: null })
-//         }
-//     } catch (error) {
-//         console.error(error);
-//         sendErrorResponse(res, {})
-//     }
-// }
+        const user = await User.findByIdAndDelete(id)
+        if (!user) {
+            sendErrorResponse(res, {
+                statusCode: 404,
+                message: 'user not found',
+            })
+        } else {
+            sendSuccessResponse(res, { message: 'user deleted', data: null })
+        }
+    } catch (error) {
+        console.error(error)
+        sendErrorResponse(res, {})
+    }
+}

@@ -11,9 +11,9 @@ todosRouter
     .route('/')
     .get(auth_controller_1.loginRequired, todos_controller_1.getAllTodos)
     .post(auth_controller_1.loginRequired, todos_controller_1.createTodo);
-// todosRouter
-//     .route('/:id')
-//     // .get(loginRequired, getTodo)
-//     .patch(loginRequired, editTodo)
-//     .delete(loginRequired, deleteTodo)
+todosRouter
+    .route('/:id')
+    .get(auth_controller_1.loginRequired, todos_controller_1.getTodo)
+    .patch(auth_controller_1.loginRequired, todos_controller_1.editTodo)
+    .delete(auth_controller_1.loginRequired, todos_controller_1.deleteTodo);
 exports.default = todosRouter;
